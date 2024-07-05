@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Github中文搜索净化
 // @namespace    http://danke666.top/
-// @version      1.0
+// @version      1.1
 // @author       DanKe
 // @description  Github中文搜索净化，我不想讨论政治，屏蔽特定用户群
 // @match        https://github.com/search*
@@ -32,14 +32,14 @@
         ];
 
 
-    const userElements = document.querySelectorAll('.Box-sc-g0xbh4-0 a[href^="/"]');
+    const userElements = document.querySelectorAll('.Box-sc-g0xbh4-0');
 
-    userElements.forEach(usernameElement => {
-        const username = usernameElement.getAttribute('href').split('/')[1];
-        if (usernamesToRemove.includes(username)) {
-            const divToRemove = usernameElement.closest('.Box-sc-g0xbh4-0');
-            if (divToRemove) {
-                divToRemove.remove();
+    userElements.forEach(element => {
+        const usernameElement = element.querySelector('a[href^="/"]');
+        if (usernameElement) {
+            const username = usernameElement.getAttribute('href').split('/')[1];
+            if (usernamesToRemove.includes(username)) {
+                element.remove();
             }
         }
     });
