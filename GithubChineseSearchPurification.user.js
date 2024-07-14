@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Github中文搜索净化
 // @namespace    http://danke666.top/
-// @version      1.3
+// @version      1.4
 // @author       DanKe
 // @description  Github中文搜索净化，屏蔽特定用户群
 // @match        https://github.com/search*
@@ -71,13 +71,29 @@
     }
 
     const observer = new MutationObserver(observerCallback);
-    window.onload = function() {
-        removeElementsWithUsername();
-        observer.observe(document.querySelector('div[data-testid="results-list"]'), {
-            childList: true,
-            subtree: true
-        });
-    };
+
+    function init() {
+        const resultsList = document.querySelector('div[data-testid="results-list"]');
+        if (resultsList) {
+            removeElementsWithUsername();
+            observer.observe(resultsList, {
+                childList: true,
+                subtree: true
+            });
+        }
+    }
+
+    // 尝试在页面加载后立即初始化
+    window.onload = init;
+
+    // 设置一个定时器，每2秒执行一次removeElementsWithUsername函数
+    setInterval(removeElementsWithUsername, 2000);
+
+    // 对于动态内容，使用MutationObserver来持续监听DOM变化
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
 
 })();
