@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Github中文搜索净化
 // @namespace    http://danke666.top/
-// @version      1.4
+// @version      1.5
 // @author       DanKe
 // @description  Github中文搜索净化，屏蔽特定用户群
 // @match        https://github.com/search*
@@ -29,6 +29,7 @@
         'panbinibn',
         'zaohmeing',
         'zhaohmng-outlook-com',
+        'pxvr-official',
     ];
 
     function addBlockedNotice() {
